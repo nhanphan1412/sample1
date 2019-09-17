@@ -126,6 +126,12 @@ class List extends React.Component {
         };
     }
 
+    showSetting(){
+        this.setState({
+            open: !this.state.open
+        });
+    }
+
     render(){
         return(
             <div>
@@ -150,6 +156,7 @@ class List extends React.Component {
                                 <ListItem
                                     key={index}
                                     item={data}
+                                    onClick={() => this.showSetting()}
                                 />
                             )
                         })
@@ -234,12 +241,6 @@ class ListItem extends React.Component{
         }
     }
 
-    showSetting(){
-        this.setState({
-            open: !this.state.open
-        });
-    }
-
     render(){
         return(
             <tr>
@@ -254,7 +255,7 @@ class ListItem extends React.Component{
                 <td>
                     <button type="button" 
                             className="btn m-btn--pill btn-secondary btn-sm"
-                            onClick={() => this.showSetting()}
+                            onClick={() => this.props.onClick && this.props.onClick()}
                     >
                             Settings
                     </button>
