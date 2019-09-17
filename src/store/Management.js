@@ -118,6 +118,14 @@ class Filter extends React.Component {
 }
 
 class List extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false,
+        };
+    }
+
     render(){
         return(
             <div>
