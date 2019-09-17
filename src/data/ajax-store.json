@@ -1,0 +1,192 @@
+[
+    {
+        "store": {
+            "name": "Unicharm Official Store",
+            "id": "1459"
+        },
+        "channel": {
+            "name": "lazada"
+        },
+        "country": "Philippine",
+        "setting": {
+            "updated": {
+                "at": {
+                    "date": "2019-09-11",
+                    "time": "14:40"
+                },
+                "by": "tich le quoc"
+            }
+        }
+    },
+    {
+        "store": {
+            "name": "La Fonte Official Store",
+            "id": "1502"
+        },
+        "channel": {
+            "name": "shopee"
+        },
+        "country": "Indonesia",
+        "setting": {
+            "updated": {
+                "at": {
+                    "date": "2019-09-10",
+                    "time": "17:55"
+                },
+                "by": "tich le quoc"
+            }
+        }
+    },
+    {
+        "store": {
+            "name": "Hanabishi Official Store",
+            "id": "1503"
+        },
+        "channel": {
+            "name": "shopee"
+        },
+        "country": "Singapore",
+        "setting": {
+            "updated": {
+                "at": {
+                    "date": "2019-08-21",
+                    "time": "07:00"
+                },
+                "by": "tich le quoc"
+            }
+        }
+    },
+    {
+        "store": {
+            "name": "Kelloggs & Pringles Official",
+            "id": "1504"
+        },
+        "channel": {
+            "name": "shopee"
+        },
+        "country": "Malaysia",
+        "setting": {
+            "updated": {
+                "at": {
+                    "date": "2019-09-09",
+                    "time": "10:41"
+                },
+                "by": "tich le quoc"
+            }
+        }
+    },
+    {
+        "store": {
+            "name": "La Fonte Official Store",
+            "id": "1505"
+        },
+        "channel": {
+            "name": "shopee"
+        },
+        "country": "Indonesia",
+        "setting": {
+            "updated": {
+                "at": {
+                    "date": "2019-08-21",
+                    "time": "07:00"
+                },
+                "by": "tich le quoc"
+            }
+        }
+    },
+    {
+        "store": {
+            "name": "La Fonte Official Store",
+            "id": "1506"
+        },
+        "channel": {
+            "name": "shopee"
+        },
+        "country": "Indonesia",
+        "setting": {
+            "updated": {
+                "at": {
+                    "date": "2019-08-21",
+                    "time": "07:00"
+                },
+                "by": "tich le quoc"
+            }
+        }
+    },
+    {
+        "store": {
+            "name": "Kelloggs & Pringles Official",
+            "id": "1507"
+        },
+        "channel": {
+            "name": "shopee"
+        },
+        "country": "Malaysia",
+        "setting": {
+            "updated": {
+                "at": {
+                    "date": "2019-09-11",
+                    "time": "14:40"
+                },
+                "by": "tich le quoc"
+            }
+        }
+    },
+    {
+        "store": {
+            "name": "Hanabishi Official Store",
+            "id": "1508"
+        },
+        "channel": {
+            "name": "shopee"
+        },
+        "country": "Singapore",
+        "setting": {
+            "updated": {
+                "at": {
+                    "date": "2019-09-07",
+                    "time": "15:15"
+                },
+                "by": "tich le quoc"
+            }
+        }
+    },
+    {
+        "store": {
+            "name": "La Fonte Official Store",
+            "id": "1509"
+        },
+        "channel": {
+            "name": "shopee"
+        },
+        "country": "Indonesia",
+        "setting": {
+            "updated": {
+                "at": {
+                    "date": "2019-09-07",
+                    "time": "18:06"
+                },
+                "by": "tich le quoc"
+            }
+        }
+    },
+    {
+        "store": {
+            "name": "Kelloggs & Pringles Official",
+            "id": "1510"
+        },
+        "channel": {
+            "name": "shopee"
+        },
+        "country": "Malaysia",
+        "setting": {
+            "updated": {
+                "at": {
+                    "date": "2019-09-07",
+                    "time": "14:10"
+                },
+                "by": "tich le quoc"
+            }
+        }
+    }
+]
