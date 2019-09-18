@@ -122,7 +122,6 @@ class List extends React.Component {
         super(props);
         this.state = {
             open: false,
-            country: this.state.item.country,
         };
     }
 
@@ -178,7 +177,7 @@ class List extends React.Component {
                     <h5 className="mb-4"><strong>Settings</strong></h5>
                     <div className="form-group m-form__group">
                         <label>Store Name</label>
-                        <input type="text" className="form-control" disabled value={this.state.country} />
+                        <input type="text" className="form-control" disabled value="" />
                     </div>
                     <div className="form-group m-form__group">
                         <label>Country</label>
