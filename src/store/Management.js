@@ -1,6 +1,5 @@
 import React from 'react';
-import '../App.css';
-import '../bootstrap.min.css';
+import '../css/App.css';
 import StoreData from '../data/ajax-store.json';
 
 function Management(){
@@ -79,7 +78,7 @@ class Filter extends React.Component {
                             <div className="col-xl-4 col-12 d-flex justify-content-end m-filter_action">
                                 <div className="filter-length">
                                     <label>Items/Page</label>
-                                    <select>
+                                    <select className="ml-2">
                                     {
                                         this.state.itemsPage.map(function (data, index) {
                                             return (                                           
@@ -89,7 +88,7 @@ class Filter extends React.Component {
                                     }
                                     </select>
                                 </div>
-                                <div className="btn-group ml-2">
+                                <div className="ml-2">
                                     <button 
                                         type="button" 
                                         className="btn btn-secondary"
@@ -123,6 +122,7 @@ class List extends React.Component {
         super(props);
         this.state = {
             open: false,
+            country: this.state.item.country,
         };
     }
 
@@ -163,15 +163,22 @@ class List extends React.Component {
                     }
                     </tbody>
                 </table>
+                <div 
+                    className={"mask" + (this.state.open ? ' show' : '')}
+                    onClick={() => this.showSetting()}
+                >
 
+                </div>
                 <div className={"form-setting p-3 right" + (this.state.open ? ' show' : '') }>
-                    <span className="hidden-list-item-modify-store">
+                    <span   className="hidden-list-item-modify-store"
+                            onClick={() => this.showSetting()}
+                    >
                         <i className="fa fa-times"></i>
                     </span>
                     <h5 className="mb-4"><strong>Settings</strong></h5>
                     <div className="form-group m-form__group">
                         <label>Store Name</label>
-                        <input type="text" className="form-control" disabled value="" />
+                        <input type="text" className="form-control" disabled value={this.state.country} />
                     </div>
                     <div className="form-group m-form__group">
                         <label>Country</label>
