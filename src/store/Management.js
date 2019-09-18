@@ -122,13 +122,25 @@ class List extends React.Component {
         super(props);
         this.state = {
             open: false,
-            country: this.state.item.country,
+            country: [],
         };
     }
 
-    showSetting(){
+    showSetting(item){
         this.setState({
-            open: !this.state.open
+            open: true,
+            item: item,
+        });
+    }
+
+    clickSetting() {
+        alert(JSON.stringify(this.state.item));
+        this.closeSetting();
+    }
+
+    closeSetting() {
+        this.setState({
+            open: false,
         });
     }
 
@@ -156,84 +168,20 @@ class List extends React.Component {
                                 <ListItem
                                     key={index}
                                     item={data}
-                                    onClick={() => this.showSetting()}
+                                    onClick={() => this.showSetting(data)}
                                 />
                             )
                         })
                     }
                     </tbody>
                 </table>
-                <div 
+                <div
                     className={"mask" + (this.state.open ? ' show' : '')}
                     onClick={() => this.showSetting()}
                 >
 
                 </div>
-                <div className={"form-setting p-3 right" + (this.state.open ? ' show' : '') }>
-                    <span   className="hidden-list-item-modify-store"
-                            onClick={() => this.showSetting()}
-                    >
-                        <i className="fa fa-times"></i>
-                    </span>
-                    <h5 className="mb-4"><strong>Settings</strong></h5>
-                    <div className="form-group m-form__group">
-                        <label>Store Name</label>
-                        <input type="text" className="form-control" disabled value={this.state.country} />
-                    </div>
-                    <div className="form-group m-form__group">
-                        <label>Country</label>
-                        <input type="text" className="form-control" disabled value="" />
-                    </div>
-                    <div className="form-group m-form__group">
-                        <label>Channel</label>
-                        <input type="text" className="form-control" disabled value="" />
-                    </div>
-                    <div className="form-group m-form__group">
-                        <label className="font-weight-bold">Store Services</label>
-                        <div className="row">
-                            <div className="col-xl-9">
-                                <label className="mt-1">Pull Sale Order <span title="On/ Off this field, system will pull/ stop pulling sale order from channel to Epsilo."><i className="fa fa-question-circle text-info"></i></span></label>
-                            </div>
-                            <div className="col-xl-3 text-right">
-                                <input type="checkbox" defaultChecked="checked" />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-xl-9">
-                                <label className="mt-1">Pull Product <span title="On/ Off this field, system will pull/ stop pulling sale order from channel to Epsilo."><i className="fa fa-question-circle text-info"></i></span></label>
-                            </div>
-                            <div className="col-xl-3 text-right">
-                                <input type="checkbox" defaultChecked="checked" />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-xl-9">
-                                <label className="mt-1">Allow Sync Stock <span title="On/ Off this field, system will pull/ stop pulling sale order from channel to Epsilo."><i className="fa fa-question-circle text-info"></i></span></label>
-                            </div>
-                            <div className="col-xl-3 text-right">
-                                <input type="checkbox" defaultChecked="checked" />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-xl-9">
-                                <label className="mt-1">Allow Sync Price <span title="On/ Off this field, system will pull/ stop pulling sale order from channel to Epsilo."><i className="fa fa-question-circle text-info"></i></span></label>
-                            </div>
-                            <div className="col-xl-3 text-right">
-                                <input type="checkbox" defaultChecked="checked" />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-xl-9">
-                                <label className="mt-1">Fulfillment <span title="On/ Off this field, system will pull/ stop pulling sale order from channel to Epsilo."><i className="fa fa-question-circle text-info"></i></span></label>
-                            </div>
-                            <div className="col-xl-3 text-right">
-                                <input type="checkbox" defaultChecked="checked" />
-                            </div>
-                        </div>
-                        <button className="btn btn-primary" type="button">Save</button>
-                    </div>
-                </div>
-
+                <Setting open={this.state.open} country={this.state.country} onClick={() => this.clickSetting()} onClose={() => this.closeSetting()} />
             </div>
         )
     }
@@ -268,6 +216,77 @@ class ListItem extends React.Component{
                     </button>
                 </td>
             </tr>
+        )
+    }
+}
+
+class Setting extends React.Component {
+    render() {
+        return (
+            <div className={"form-setting p-3 right" + (this.props.open ? ' show' : '') }>
+                    <span   className="hidden-list-item-modify-store"
+                            onClick={() => this.props.onClose && this.props.onClose()}
+                    >
+                        <i className="fa fa-times"></i>
+                    </span>
+                <h5 className="mb-4"><strong>Settings</strong></h5>
+                <div className="form-group m-form__group">
+                    <label>Store Name</label>
+                    <input type="text" className="form-control" disabled value={this.props.country} />
+                </div>
+                <div className="form-group m-form__group">
+                    <label>Country</label>
+                    <input type="text" className="form-control" disabled value="" />
+                </div>
+                <div className="form-group m-form__group">
+                    <label>Channel</label>
+                    <input type="text" className="form-control" disabled value="" />
+                </div>
+                <div className="form-group m-form__group">
+                    <label className="font-weight-bold">Store Services</label>
+                    <div className="row">
+                        <div className="col-xl-9">
+                            <label className="mt-1">Pull Sale Order <span title="On/ Off this field, system will pull/ stop pulling sale order from channel to Epsilo."><i className="fa fa-question-circle text-info"></i></span></label>
+                        </div>
+                        <div className="col-xl-3 text-right">
+                            <input type="checkbox" defaultChecked="checked" />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-xl-9">
+                            <label className="mt-1">Pull Product <span title="On/ Off this field, system will pull/ stop pulling sale order from channel to Epsilo."><i className="fa fa-question-circle text-info"></i></span></label>
+                        </div>
+                        <div className="col-xl-3 text-right">
+                            <input type="checkbox" defaultChecked="checked" />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-xl-9">
+                            <label className="mt-1">Allow Sync Stock <span title="On/ Off this field, system will pull/ stop pulling sale order from channel to Epsilo."><i className="fa fa-question-circle text-info"></i></span></label>
+                        </div>
+                        <div className="col-xl-3 text-right">
+                            <input type="checkbox" defaultChecked="checked" />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-xl-9">
+                            <label className="mt-1">Allow Sync Price <span title="On/ Off this field, system will pull/ stop pulling sale order from channel to Epsilo."><i className="fa fa-question-circle text-info"></i></span></label>
+                        </div>
+                        <div className="col-xl-3 text-right">
+                            <input type="checkbox" defaultChecked="checked" />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-xl-9">
+                            <label className="mt-1">Fulfillment <span title="On/ Off this field, system will pull/ stop pulling sale order from channel to Epsilo."><i className="fa fa-question-circle text-info"></i></span></label>
+                        </div>
+                        <div className="col-xl-3 text-right">
+                            <input type="checkbox" defaultChecked="checked" />
+                        </div>
+                    </div>
+                    <button className="btn btn-primary" type="button" onClick={() => this.props.onClick && this.props.onClick()}>Save</button>
+                </div>
+            </div>
         )
     }
 }
