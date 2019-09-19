@@ -122,7 +122,9 @@ class List extends React.Component {
         super(props);
         this.state = {
             open: false,
-            country: [],
+            store: '',
+            country: '',
+            channel: ''
         };
     }
 
@@ -130,8 +132,11 @@ class List extends React.Component {
         this.setState({
             open: true,
             item: item,
+            store: item.store.name,
+            country: item.country,
+            channel: item.channel.name
         });
-        console.log( item.country );
+        console.log( item.country + ' - ' + item.store.name + ' - ' + item.channel.name);
     }
 
     clickSetting() {
@@ -184,7 +189,9 @@ class List extends React.Component {
                 </div>
                 <Setting    
                     open={this.state.open} 
-                    country={this.state.country} 
+                    store={this.state.store}
+                    channel={this.state.channel}
+                    country={this.state.country}
                     onClick={() => this.clickSetting()} 
                     onClose={() => this.closeSetting()} 
                     />
@@ -207,7 +214,7 @@ class ListItem extends React.Component{
             <tr>
                 <td>{this.props.item.country}</td>
                 <td>{this.props.item.store.name}</td>
-                <td>{this.props.item.channel.name}</td>
+                <td><div className={this.props.item.channel.name + "-channel"}></div></td>
                 <td>
                     {this.props.item.setting.updated.at.date}<br />
                     {this.props.item.setting.updated.at.time}
@@ -238,15 +245,15 @@ class Setting extends React.Component {
                 <h5 className="mb-4"><strong>Settings</strong></h5>
                 <div className="form-group m-form__group">
                     <label>Store Name</label>
-                    <input type="text" className="form-control" disabled value={this.props.country} />
+                    <input type="text" className="form-control" disabled value={this.props.store} />
                 </div>
                 <div className="form-group m-form__group">
                     <label>Country</label>
-                    <input type="text" className="form-control" disabled value={this.props.open} />
+                    <input type="text" className="form-control" disabled value={this.props.country} />
                 </div>
                 <div className="form-group m-form__group">
                     <label>Channel</label>
-                    <input type="text" className="form-control" disabled value="" />
+                    <div className={this.props.channel + "-channel d-block"}></div>
                 </div>
                 <div className="form-group m-form__group">
                     <label className="font-weight-bold">Store Services</label>

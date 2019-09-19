@@ -1,3 +1,32 @@
+.shopee-channel {
+  background-image: url('../images/shopee.png');
+  width: 63px;
+  height: 18px;
+}
+
+.lazada-channel {
+  background-image: url('../images/lazada.png');
+  width: 59px;
+  height: 18px;
+}
+
+.hidden-list-item-sale-order, .hidden-list-item-budgets, .hidden-list-item-timeline, .hidden-list-item-match-type, .hidden-list-item-bidding-price, .hidden-list-item-campaign, .hidden-list-item-move-sku, .hidden-list-item-modify-store {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  position: absolute;
+  right: 5px;
+  top: 10px;
+  border-radius: 50%;
+  text-align: center;
+  background-color: #f3f3f3;
+  color: #a5a4a4;
+  display: block;
+  z-index: 99999;
+  opacity: 0.5;
+}
+
 .form-setting{
     position: fixed;
     width: 35%;
