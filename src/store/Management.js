@@ -17,17 +17,17 @@ class Filter extends React.Component {
         super(props);
         
         this.state = {
+            value: '',
             open: false,
             field: [
-                { key: -1, value: 'All Field(s)' },
-                { key: 0, value: 'Seller SKU' },
-                { key: 1, value: 'Product Name' }
+                { key: "-1", value: 'All Field(s)' },
+                { key: "0", value: 'Seller SKU' },
+                { key: "1", value: 'Product Name' }
             ],
             itemsPage: [
-                { key: -1, value: '10' },
-                { key: 0, value: '20' },
-                { key: 1, value: '30' },
-                { key: 2, value: '50' }
+                { key: "5", value: '5' },
+                { key: "10", value: '10' },
+                { key: "20", value: '20' },
             ]
         };
 
@@ -37,6 +37,14 @@ class Filter extends React.Component {
         this.setState({
             open: !this.state.open
         });
+    }
+
+    handleChange = (event) =>{
+        this.setState({
+           value: event.target.value 
+        });
+
+        console.log(event.target.value)
     }
 
     render(){
@@ -78,7 +86,10 @@ class Filter extends React.Component {
                             <div className="col-xl-4 col-12 d-flex justify-content-end m-filter_action">
                                 <div className="filter-length">
                                     <label>Items/Page</label>
-                                    <select className="ml-2">
+                                    <select 
+                                        className="ml-2" 
+                                        onChange={this.handleChange}
+                                    >
                                     {
                                         this.state.itemsPage.map(function (data, index) {
                                             return (                                           
@@ -169,7 +180,7 @@ class List extends React.Component {
                     </thead>
                     <tbody>
                     {
-                        StoreData.map( (data,index) => {
+                        StoreData.slice(0,5).map( (data,index) => {
                             return(
                                 <ListItem
                                     key={index}
