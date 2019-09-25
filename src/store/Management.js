@@ -5,10 +5,37 @@ import StoreData from '../data/ajax-store.json';
 function Management(){
     return(
         <div className="container">
-            <Filter />
-            <List />
+            <StoreManagement />
         </div>
     );
+}
+
+class StoreManagement extends React.Component{
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            itemsPages: 10,
+            filter: ''
+        }
+
+    }   
+
+    render(){
+        return(
+            <div>
+                <Filter 
+                    changeItemPages={value => this.setState({itemsPages: value})}
+                    handleFilter={value => this.setState({filter: value})}
+                />
+                <List 
+                    itemsPages={this.state.itemsPages} 
+                    filterChange={this.state.filter}
+                    />
+            </div>
+        )
+    }
 }
 
 class Filter extends React.Component {
@@ -17,21 +44,17 @@ class Filter extends React.Component {
         super(props);
         
         this.state = {
-            value: '',
             open: false,
             field: [
                 { key: -1, value: 'All Field(s)' },
-                { key: 0, value: 'Seller SKU' },
-                { key: 1, value: 'Product Name' }
+                { key: 0, value: 'Store Name' },
+                { key: 1, value: 'Services Updated By' }
             ],
             itemsPage: [
                 { key: '5', value: '5' },
                 { key: '10', value: '10' },
             ]
         };
-
-        this.handleChange = this.handleChange.bind(this);
-
     }
 
     toogleOpen(){
@@ -39,14 +62,6 @@ class Filter extends React.Component {
             open: !this.state.open
         });
     }
-
-    handleChange(event) {
-        this.setState({
-            value: event.target.value
-        });
-
-        console.log(event.target.value)
-    }    
 
     render(){
         return(
@@ -75,13 +90,20 @@ class Filter extends React.Component {
                                             }
                                         </select>
                                     </div>
-                                    <input type="text" className="form-control"
-                                        placeholder=" Search by Seller SKU, Product Name" />
-                                    <div className="input-group-append">
-                                        <span className="input-group-text">
+                                    <input 
+                                        type="text" 
+                                        className="form-control"
+                                        placeholder=" Search by Seller SKU, Product Name"
+                                        onChange={value => console.log(value.target.value)} 
+                                    />
+                                    {/* <div className="input-group-append">
+                                        <span 
+                                            className="input-group-text"
+                                            onClick={this.filterChangeButton}
+                                        >
                                             <i className="fa fa-search"></i>
                                         </span>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                             <div className="col-xl-4 col-12 d-flex justify-content-end m-filter_action">
@@ -89,8 +111,8 @@ class Filter extends React.Component {
                                     <label>Items/Page</label>
                                     <select 
                                         className="ml-2"
-                                        onChange={this.handleChange}
-                                        value={this.state.value}
+                                        onChange={value => this.props.changeItemPages(value.target.value)}
+                                        value={this.props.itemsPages}
                                     >
                                     {
                                         this.state.itemsPage.map(function (data, index) {
@@ -137,7 +159,8 @@ class List extends React.Component {
             open: false,
             store: '',
             country: '',
-            channel: ''
+            channel: '',
+            filterText: ''
         };
     }
 
@@ -164,6 +187,7 @@ class List extends React.Component {
     }
 
     render(){
+
         return(
             <div>
                 <table className="table table-hover">
@@ -182,7 +206,9 @@ class List extends React.Component {
                     </thead>
                     <tbody>
                     {
-                        StoreData.slice(0, this.props.value).map( (data,index) => {
+                        StoreData
+                            .slice(0, this.props.itemsPages)
+                            .map( (data,index) => {
                             return(
                                 <ListItem
                                     key={index}
