@@ -94,16 +94,16 @@ class Filter extends React.Component {
                                         type="text" 
                                         className="form-control"
                                         placeholder=" Search by Seller SKU, Product Name"
-                                        onChange={value => console.log(value.target.value)} 
+                                        onChange={value => this.props.handleFilter(value.target.value)} 
                                     />
-                                    {/* <div className="input-group-append">
+                                    <div className="input-group-append">
                                         <span 
                                             className="input-group-text"
                                             onClick={this.filterChangeButton}
                                         >
                                             <i className="fa fa-search"></i>
                                         </span>
-                                    </div> */}
+                                    </div>
                                 </div>
                             </div>
                             <div className="col-xl-4 col-12 d-flex justify-content-end m-filter_action">
@@ -207,6 +207,13 @@ class List extends React.Component {
                     <tbody>
                     {
                         StoreData
+                            .filter(data => {
+                                return(
+                                    (   data.store.name.toLowerCase() + 
+                                        data.setting.updated.at.date.toLowerCase() + 
+                                        data.setting.updated.by.toLowerCase()).indexOf(this.props.filterChange.toLowerCase()) !== -1
+                                )
+                            })
                             .slice(0, this.props.itemsPages)
                             .map( (data,index) => {
                             return(
