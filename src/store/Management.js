@@ -20,14 +20,22 @@ class StoreManagement extends React.Component{
             filter: ''
         }
 
+        this.filterChangeButton = this.filterChangeButton.bind(this);
+
     }   
+
+    filterChangeButton(value){
+        this.setState({
+            filter: value
+        })
+    }
 
     render(){
         return(
             <div>
                 <Filter 
                     changeItemPages={value => this.setState({itemsPages: value})}
-                    handleFilter={value => this.setState({filter: value})}
+                    handleFilter={value => this.filterChangeButton(value.target.value)}
                 />
                 <List 
                     itemsPages={this.state.itemsPages} 
@@ -94,7 +102,7 @@ class Filter extends React.Component {
                                         type="text" 
                                         className="form-control"
                                         placeholder=" Search by Seller SKU, Product Name"
-                                        onChange={value => this.props.handleFilter(value.target.value)} 
+                                        onChange={this.props.handleFilter} 
                                     />
                                     <div className="input-group-append">
                                         <span 
