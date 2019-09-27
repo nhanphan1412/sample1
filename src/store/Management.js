@@ -105,7 +105,6 @@ class Filter extends React.Component {
                                         placeholder=" Search by Seller SKU, Product Name"
                                         onChange={event => {
                                             this.setState({value: event.target.value});
-                                            // this.props.handleFilter(event.target.value);
                                         }}
                                     />
                                     <div className="input-group-append">
