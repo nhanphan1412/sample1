@@ -35,7 +35,8 @@ class StoreManagement extends React.Component{
             <div>
                 <Filter 
                     changeItemPages={value => this.setState({itemsPages: value})}
-                    handleFilter={value => this.filterChangeButton(value.target.value)}
+                    handleFilter={value => this.filterChangeButton(value)}
+                    filterChangeButtonPress={value => this.filterChangeButton(value)}
                 />
                 <List 
                     itemsPages={this.state.itemsPages} 
@@ -63,14 +64,6 @@ class Filter extends React.Component {
                 { key: '10', value: '10' },
             ]
         };
-        this.filterChangeButton = this.filterChangeButton.bind(this);
-    }
-
-    filterChangeButton(value){
-        alert('muốn search gì thì search');
-        this.setState({
-            filter: value
-        })
     }
 
     toogleOpen(){
@@ -110,12 +103,15 @@ class Filter extends React.Component {
                                         type="text" 
                                         className="form-control"
                                         placeholder=" Search by Seller SKU, Product Name"
-                                        onChange={this.props.handleFilter} 
+                                        onChange={event => {
+                                            this.setState({value: event.target.value});
+                                            // this.props.handleFilter(event.target.value);
+                                        }}
                                     />
                                     <div className="input-group-append">
                                         <span 
                                             className="input-group-text"
-                                            onClick={this.filterChangeButton}
+                                            onClick={() => this.props.filterChangeButtonPress(this.state.value)}
                                         >
                                             <i className="fa fa-search"></i>
                                         </span>
