@@ -63,6 +63,14 @@ class Filter extends React.Component {
                 { key: '10', value: '10' },
             ]
         };
+        this.filterChangeButton = this.filterChangeButton.bind(this);
+    }
+
+    filterChangeButton(value){
+        alert('muốn search gì thì search');
+        this.setState({
+            filter: value
+        })
     }
 
     toogleOpen(){
