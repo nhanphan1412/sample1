@@ -4,11 +4,33 @@ import StoreData from '../data/ajax-store.json';
 
 function Management(){
     return(
-        <div className="container">
-            <Filter />
-            <List />
-        </div>
+        <Store />
     );
+}
+
+class Store extends React.Component{
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            itemPages: 5
+        }
+    }
+
+
+    render(){
+        console.log(this.state);
+        return(
+            <div className="container">
+                <Filter 
+                    changeItemPages={value => this.setState({itemPages: value})} 
+                    itemPages={this.state.itemPages}
+                />
+                <List itemPages={this.state.itemPages} />
+            </div>
+        )
+    }
 }
 
 class Filter extends React.Component {
@@ -25,11 +47,12 @@ class Filter extends React.Component {
                 { key: "1", value: 'Product Name' }
             ],
             itemsPage: [
-                { key: "5", value: '5' },
-                { key: "10", value: '10' },
-                { key: "20", value: '20' },
+                { key: '5', value: '5' },
+                { key: '10', value: '10' },
             ]
         };
+
+        this.handleChange = this.handleChange.bind(this);
 
     }
 
@@ -37,14 +60,6 @@ class Filter extends React.Component {
         this.setState({
             open: !this.state.open
         });
-    }
-
-    handleChange = (event) =>{
-        this.setState({
-           value: event.target.value 
-        });
-
-        console.log(event.target.value)
     }
 
     render(){
@@ -87,8 +102,10 @@ class Filter extends React.Component {
                                 <div className="filter-length">
                                     <label>Items/Page</label>
                                     <select 
-                                        className="ml-2" 
-                                        onChange={this.handleChange}
+                                        className="ml-2"
+                                        onChange={value => this.props.changeItemPages(value.target.value)}
+                                        // onChange={value => console.log(value.target.value)}
+                                        value={this.props.itemPages}
                                     >
                                     {
                                         this.state.itemsPage.map(function (data, index) {
@@ -142,7 +159,6 @@ class List extends React.Component {
     showSetting(item){
         this.setState({
             open: true,
-            item: item,
             store: item.store.name,
             country: item.country,
             channel: item.channel.name
@@ -180,7 +196,7 @@ class List extends React.Component {
                     </thead>
                     <tbody>
                     {
-                        StoreData.slice(0,5).map( (data,index) => {
+                        StoreData.slice(0, this.props.itemPages).map( (data,index) => {
                             return(
                                 <ListItem
                                     key={index}
