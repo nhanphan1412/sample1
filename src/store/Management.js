@@ -4,30 +4,44 @@ import StoreData from '../data/ajax-store.json';
 
 function Management(){
     return(
-        <Store />
+        <div className="container">
+            <StoreManagement />
+        </div>
     );
 }
 
-class Store extends React.Component{
+class StoreManagement extends React.Component{
 
     constructor(props){
         super(props);
 
         this.state = {
-            itemPages: 5
+            itemsPages: 10,
+            filter: ''
         }
+
+        this.filterChangeButton = this.filterChangeButton.bind(this);
+
+    }   
+
+    filterChangeButton(value){
+        this.setState({
+            filter: value
+        })
     }
 
-
     render(){
-        console.log(this.state);
         return(
-            <div className="container">
+            <div>
                 <Filter 
-                    changeItemPages={value => this.setState({itemPages: value})} 
-                    itemPages={this.state.itemPages}
+                    changeItemPages={value => this.setState({itemsPages: value})}
+                    handleFilter={value => this.filterChangeButton(value)}
+                    filterChangeButtonPress={value => this.filterChangeButton(value)}
                 />
-                <List itemPages={this.state.itemPages} />
+                <List 
+                    itemsPages={this.state.itemsPages} 
+                    filterChange={this.state.filter}
+                    />
             </div>
         )
     }
@@ -39,21 +53,17 @@ class Filter extends React.Component {
         super(props);
         
         this.state = {
-            value: '',
             open: false,
             field: [
-                { key: "-1", value: 'All Field(s)' },
-                { key: "0", value: 'Seller SKU' },
-                { key: "1", value: 'Product Name' }
+                { key: -1, value: 'All Field(s)' },
+                { key: 0, value: 'Store Name' },
+                { key: 1, value: 'Services Updated By' }
             ],
             itemsPage: [
                 { key: '5', value: '5' },
                 { key: '10', value: '10' },
             ]
         };
-
-        this.handleChange = this.handleChange.bind(this);
-
     }
 
     toogleOpen(){
@@ -89,10 +99,19 @@ class Filter extends React.Component {
                                             }
                                         </select>
                                     </div>
-                                    <input type="text" className="form-control"
-                                        placeholder=" Search by Seller SKU, Product Name" />
+                                    <input 
+                                        type="text" 
+                                        className="form-control"
+                                        placeholder=" Search by Seller SKU, Product Name"
+                                        onChange={event => {
+                                            this.setState({value: event.target.value});
+                                        }}
+                                    />
                                     <div className="input-group-append">
-                                        <span className="input-group-text">
+                                        <span 
+                                            className="input-group-text"
+                                            onClick={() => this.props.filterChangeButtonPress(this.state.value)}
+                                        >
                                             <i className="fa fa-search"></i>
                                         </span>
                                     </div>
@@ -104,8 +123,7 @@ class Filter extends React.Component {
                                     <select 
                                         className="ml-2"
                                         onChange={value => this.props.changeItemPages(value.target.value)}
-                                        // onChange={value => console.log(value.target.value)}
-                                        value={this.props.itemPages}
+                                        value={this.props.itemsPages}
                                     >
                                     {
                                         this.state.itemsPage.map(function (data, index) {
@@ -152,7 +170,8 @@ class List extends React.Component {
             open: false,
             store: '',
             country: '',
-            channel: ''
+            channel: '',
+            filterText: ''
         };
     }
 
@@ -178,6 +197,7 @@ class List extends React.Component {
     }
 
     render(){
+
         return(
             <div>
                 <table className="table table-hover">
@@ -196,7 +216,16 @@ class List extends React.Component {
                     </thead>
                     <tbody>
                     {
-                        StoreData.slice(0, this.props.itemPages).map( (data,index) => {
+                        StoreData
+                            .filter(data => {
+                                return(
+                                    (   data.store.name.toLowerCase() + 
+                                        data.setting.updated.at.date.toLowerCase() + 
+                                        data.setting.updated.by.toLowerCase()).indexOf(this.props.filterChange.toLowerCase()) !== -1
+                                )
+                            })
+                            .slice(0, this.props.itemsPages)
+                            .map( (data,index) => {
                             return(
                                 <ListItem
                                     key={index}
